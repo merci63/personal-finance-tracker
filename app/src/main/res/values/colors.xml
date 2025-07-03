@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="your_primary">#A49512</color>
+    <color name="your_primary_variant">#3700B3</color>
+    <color name="your_secondary">#03DAC6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="toolbar_color">#FFAEF509</color>
+    <color name="nav_header">#FFEAA00C</color>
+    <color name="dashboard_color">#FF9B6309</color>
+    <color name="income_color">#FFA24074</color>
+    <color name="expense_color">#FF6C042E</color>
+</resources>
