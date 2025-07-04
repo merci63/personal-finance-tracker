@@ -48,8 +48,9 @@ dependencies {
 
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-auth")
-   // implementation("com.firebaseui:firebase-ui-database:8.0.2")
+    implementation("com.firebaseui:firebase-ui-database:8.0.2")
     implementation("androidx.cardview:cardview:1.0.0")
+
 
 
 

@@ -5,22 +5,22 @@ public class Data {
     private String type;
     private String note;
     private String id;
-    private String data;
+    private String date;
 
-    public Data(String data, String id, String note, String type, int amount) {
-        this.data = data;
+    public Data(String date, String id, String note, String type, int amount) {
+        this.date = date;
         this.id = id;
         this.note = note;
         this.type = type;
         this.amount = amount;
     }
 
-    public String getData() {
-        return data;
+    public String getDate() {
+        return date;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getId() {
