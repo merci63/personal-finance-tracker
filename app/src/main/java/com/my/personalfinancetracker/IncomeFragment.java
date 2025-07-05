@@ -1,5 +1,6 @@
 package com.my.personalfinancetracker;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -24,6 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.my.personalfinancetracker.Model.Data;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link IncomeFragment#newInstance} factory method to
@@ -35,6 +41,15 @@ public class IncomeFragment extends Fragment {
     private DatabaseReference mIncomeDatabase;
     private RecyclerView recyclerView;
     private TextView income_total;
+    private EditText edtAmount;
+    private EditText edtType;
+    private EditText edtNote;
+    private Button update_btn;
+    private Button delete_btn;
+    private String type;
+    private String note;
+    private int amount;
+    private String firebaseKey;
     private FirebaseRecyclerAdapter<Data,MyViewHolder> adapter;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -129,6 +144,17 @@ public class IncomeFragment extends Fragment {
                 holder.setNote(model.getNote());
                 holder.setDate(model.getDate());
                 holder.setAmmount(model.getAmount());
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        firebaseKey = getRef(position).getKey();
+                        type = model.getType();
+                        amount = model.getAmount();
+                        note = model.getNote();
+                        updateDataItem();
+                    }
+                });
             }
 
             @NonNull
@@ -143,28 +169,79 @@ public class IncomeFragment extends Fragment {
       // adapter.startListening();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         View mView;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
         }
-        private void setType(String type){
+
+        private void setType(String type) {
             TextView mType = mView.findViewById(R.id.type_text_income);
             mType.setText(type);
         }
-        private void setNote(String note){
+
+        private void setNote(String note) {
             TextView mNote = mView.findViewById(R.id.note_text_income);
             mNote.setText(note);
         }
-        private void setDate(String date){
+
+        private void setDate(String date) {
             TextView mDate = mView.findViewById(R.id.date_text_income);
             mDate.setText(date);
         }
-        private void setAmmount(int ammount){
+
+        private void setAmmount(int ammount) {
             TextView mAmmount = mView.findViewById(R.id.amount_text_income);
             String stammount = String.valueOf(ammount);
             mAmmount.setText(stammount);
         }
+    }
+    private void updateDataItem() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View myview = inflater.inflate(R.layout.update_data_item, null);
+        dialog.setView(myview);
+
+        edtAmount = myview.findViewById(R.id.ammount_edit);
+        edtType = myview.findViewById(R.id.type_edit);
+        edtNote = myview.findViewById(R.id.note_edit);
+
+        edtNote.setText(note);
+        edtNote.setSelection(note.length());
+        edtAmount.setText(String.valueOf(amount));
+        edtAmount.setSelection(String.valueOf(amount).length());
+        edtType.setText(type);
+        edtType.setSelection(type.length());
+        update_btn = myview.findViewById(R.id.btn_update);
+        delete_btn = myview.findViewById(R.id.btn_delete);
+
+        AlertDialog mydialog = dialog.create();
+        update_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                type = edtType.getText().toString().trim();
+                note=edtNote.getText().toString().trim();
+                String nAmount = String.valueOf(amount);
+                nAmount = edtAmount.getText().toString().trim();
+                int iAmount = Integer.parseInt(nAmount);
+
+                String nDate = DateFormat.getDateInstance().format(new Date());
+                Data data = new Data(nDate,firebaseKey,note,type,iAmount);
+                mIncomeDatabase.child(firebaseKey).setValue(data);
+                mydialog.dismiss();
+            }
+        });
+
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mIncomeDatabase.child(firebaseKey).removeValue();
+                mydialog.dismiss();
+            }
+        });
+        mydialog.show();
     }
 }

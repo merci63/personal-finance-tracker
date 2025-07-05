@@ -1,5 +1,6 @@
 package com.my.personalfinancetracker;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -23,6 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.my.personalfinancetracker.Model.Data;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ExpenseFragment#newInstance} factory method to
@@ -34,6 +40,15 @@ public class ExpenseFragment extends Fragment {
     private DatabaseReference mExpenseDatabase;
     private RecyclerView recyclerView;
     private  TextView expense_total;
+    private EditText edtAmount;
+    private EditText edtType;
+    private EditText edtNote;
+    private Button update_btn;
+    private Button delete_btn;
+    private String type;
+    private String note;
+    private int amount;
+    private String firebaseKey;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -123,6 +138,17 @@ public class ExpenseFragment extends Fragment {
                 holder.setDate(model.getDate());
                 holder.setNote(model.getNote());
                 holder.setAmount(model.getAmount());
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        firebaseKey = getRef(position).getKey();
+                        amount= model.getAmount();
+                        type = model.getType();
+                        note = model.getNote();
+                        updateDataItem();
+                    }
+                });
             }
 
             @NonNull
@@ -161,5 +187,48 @@ public class ExpenseFragment extends Fragment {
             String st_amount = String.valueOf(amount);
             mAmount.setText(st_amount);
         }
+    }
+    private void updateDataItem(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View myview = inflater.inflate(R.layout.update_data_item,null);
+        dialog.setView(myview);
+
+        edtAmount = myview.findViewById(R.id.ammount_edit);
+        edtType = myview.findViewById(R.id.type_edit);
+        edtNote = myview.findViewById(R.id.note_edit);
+
+        edtNote.setText(note);
+        edtNote.setSelection(note.length());
+        edtType.setText(type);
+        edtType.setSelection(type.length());
+        edtAmount.setText(String.valueOf(amount));
+        edtAmount.setSelection(String.valueOf(amount).length());
+        update_btn = myview.findViewById(R.id.btn_update);
+        delete_btn = myview.findViewById(R.id.btn_delete);
+
+        AlertDialog mydialog = dialog.create();
+        update_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = edtType.getText().toString().trim();
+                note = edtNote.getText().toString().trim();
+                String eAmount = String.valueOf(amount);
+                eAmount = edtAmount.getText().toString().trim();
+                int iAmount = Integer.parseInt(eAmount);
+                String eDate = DateFormat.getDateInstance().format(new Date());
+                Data data = new Data(eDate, firebaseKey,note,type,iAmount);
+                mExpenseDatabase.child(firebaseKey).setValue(data);
+                mydialog.dismiss();
+            }
+        });
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpenseDatabase.child(firebaseKey).removeValue();
+                mydialog.dismiss();
+            }
+        });
+        mydialog.show();
     }
 }

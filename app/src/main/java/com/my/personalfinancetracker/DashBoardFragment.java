@@ -3,6 +3,7 @@ package com.my.personalfinancetracker;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -19,8 +20,11 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.my.personalfinancetracker.Model.Data;
 
 import java.text.DateFormat;
@@ -44,6 +48,8 @@ public class DashBoardFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mIncomeDatabase;
     private DatabaseReference mExpenseDatabase;
+    private TextView totalIncomeResult;
+    private TextView totalexpenseResult;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -106,6 +112,9 @@ public class DashBoardFragment extends Fragment {
         fab_income_text = myview.findViewById(R.id.income_ft_text);
         fab_expense_text = myview.findViewById(R.id.expense_ft_text);
 
+        totalIncomeResult = myview.findViewById(R.id.income_set_result);
+        totalexpenseResult = myview.findViewById(R.id.expense_set_result);
+
         FadeOpen = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_open);
         FadeClose =AnimationUtils.loadAnimation(getActivity(),R.anim.fade_close);
 
@@ -138,6 +147,45 @@ public class DashBoardFragment extends Fragment {
                     fab_income_text.setClickable(true);
                     isOpen = true;
                 }
+            }
+        });
+        //calculate total income
+        mIncomeDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int sum =0;
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Data data = dataSnapshot.getValue(Data.class);
+                    if(data != null) {
+                        sum += data.getAmount();
+                    }
+                }
+                String stSum = String.valueOf(sum);
+                totalIncomeResult.setText(stSum);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        mExpenseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int eSum =0;
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    Data data = dataSnapshot.getValue(Data.class);
+                    if(data != null){
+                        eSum += data.getAmount();
+                    }
+                }
+                String st_eSum = String.valueOf(eSum);
+                totalexpenseResult.setText(st_eSum);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
         return myview;

@@ -39,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
-        if(mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-        }
+//        if(mAuth.getCurrentUser()!=null){
+//            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+//            finish();
+//        }
         mDialog = new ProgressDialog(this);
         login();
     }
