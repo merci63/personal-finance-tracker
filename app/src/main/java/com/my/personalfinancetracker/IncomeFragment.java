@@ -118,7 +118,7 @@ public class IncomeFragment extends Fragment {
                     Data data = dataSnapshot.getValue(Data.class);
                     total+= data.getAmount();
                     String stTotal = String.valueOf(total);
-                    income_total.setText(stTotal);
+                    income_total.setText(stTotal+".00");
                 }
             }
 

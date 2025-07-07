@@ -1,10 +1,12 @@
 package com.my.personalfinancetracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import androidx.annotation.ColorRes;
 import androidx.appcompat.widget.Toolbar;
 
 
@@ -22,6 +24,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -30,96 +34,113 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DashBoardFragment dashBoardFragment;
     private IncomeFragment incomeFragment;
     private ExpenseFragment expenseFragment;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Initialize UI components
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         toolbar.setTitle("Personal Finance Tracker");
         setSupportActionBar(toolbar);
 
-        bottomNavigationView=findViewById(R.id.bottom_navigation);
-        frameLayout= findViewById(R.id.main);
+        mAuth = FirebaseAuth.getInstance();
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        frameLayout = findViewById(R.id.main);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        // Set up drawer toggle
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+        );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView=findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        // Initialize fragments
         dashBoardFragment = new DashBoardFragment();
         incomeFragment = new IncomeFragment();
         expenseFragment = new ExpenseFragment();
-        setFragment(dashBoardFragment);//default fragment
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId() == R.id.dashboard ) {
-                    setFragment(dashBoardFragment);
-                    bottomNavigationView.setItemBackgroundResource(R.color.dashboard_color);
-                    return true;
-                }
-                else if (item.getItemId() == R.id.income) {
-                    setFragment(incomeFragment);
-                    bottomNavigationView.setItemBackgroundResource(R.color.income_color);
-                    return true;
-                } else if (item.getItemId() == R.id.expense) {
-                    setFragment(expenseFragment);
-                    bottomNavigationView.setItemBackgroundResource(R.color.expense_color);
-                    return true;
-                }
-                else return false;
+
+        // Set default fragment
+        setFragment(dashBoardFragment, false);
+
+        // Bottom navigation listener
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.dashboard) {
+                setFragment(dashBoardFragment, true);
+                updateBottomNavColor(R.color.dashboard_color);
+                return true;
+            } else if (itemId == R.id.income) {
+                setFragment(incomeFragment, true);
+                updateBottomNavColor(R.color.income_color);
+                return true;
+            } else if (itemId == R.id.expense) {
+                setFragment(expenseFragment, true);
+                updateBottomNavColor(R.color.expense_color);
+                return true;
             }
+            return false;
         });
 
-
+        // Navigation drawer listener
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main,fragment);
-        fragmentTransaction.commit();
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.dashboard) {
+            setFragment(dashBoardFragment, true);
+        } else if (itemId == R.id.income) {
+            setFragment(incomeFragment, true);
+        } else if (itemId == R.id.expense) {
+            setFragment(expenseFragment, true);
+        } else if (itemId == R.id.logout) {
+            mAuth.signOut();
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void updateBottomNavColor(@ColorRes int color) {
+        bottomNavigationView.setItemBackgroundResource(color);
+    }
+
+    private void setFragment(Fragment fragment, boolean addToBackStack) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main, fragment);
+
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+
+        transaction.commit();
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
-        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-            drawerLayout.closeDrawer(GravityCompat.END);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }
-    }
-
-    public void displaySelectedListener(int itemId){
-        Fragment fragment=null;
-
-        if (itemId == R.id.dashboard) {
-            fragment = new DashBoardFragment();
-            return;
-        } else if (itemId == R.id.income) {
-            fragment = new IncomeFragment();
-            return;
-        } else if (itemId == R.id.expense) {
-            fragment = new ExpenseFragment();
-            return;
-        }
-
-        if(fragment!=null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.main, fragment);
-            ft.commit();
-        }
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
-    }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        displaySelectedListener(item.getItemId());
-        return true;
     }
 }

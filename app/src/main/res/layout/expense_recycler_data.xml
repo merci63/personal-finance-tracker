@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="5dp"
     android:elevation="5dp"
+    android:layout_margin="5dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -19,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="2 July 2025"
+                android:layout_margin="5dp"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textStyle="bold"
                 android:id="@+id/date_text_expense"

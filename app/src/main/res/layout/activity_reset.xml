@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ResetActivity">
+    tools:context=".ResetActivity"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@drawable/background_color">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Reset Password"-->
+<!--        android:textSize="?android:textAppearanceLarge"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginBottom="20dp"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your email to receive reset instruction"
+        android:textSize="17dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/design_default_color_primary"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_email"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="30dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_reset_cancel"
+            android:text="Cancel"
+            android:layout_marginEnd="60dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_reset"
+            android:text="Reset"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
