@@ -29,7 +29,7 @@ Users can create new income or expense records by choosing a type, entering an a
    
 Existing records can be easily updated or removed with just a tap.
 
-![Edit and Delete Screenshot](update%20and%20delete/add.png)
+![Edit and Delete Screenshot](screenshots/update%20and%20delete.png)
 
    Firebase Integration Details
    
@@ -55,25 +55,25 @@ All data changes are updated in real time.
 Firebase Data Structure
 
 
-  IncomeData
- └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2
-      └── -OUTQyIUwV2RTsxvA051
-          ├── amount: 5000
-          ├── date: "Jul 6, 2025"
-          ├── id: "-OUTQyIUwV2RTsxvA051"
-          ├── note: "monthly payment"
-          └── type: "salary"
+  IncomeData   
+ └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2  
+      └── -OUTQyIUwV2RTsxvA051  
+          ├── amount: 5000  
+          ├── date: "Jul 6, 2025"  
+          ├── id: "-OUTQyIUwV2RTsxvA051"  
+          ├── note: "monthly payment"  
+          └── type: "salary"  
 
           
 
-ExpenseDatabase
- └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2
-      └── -OUmjTKWx5I2-MSigh-5
-          ├── amount: 200
-          ├── date: "Jul 9, 2025"
-          ├── id: "-OUmjTKWx5I2-MSigh-5"
-          ├── note: "Food"
-          └── type: "Groceries
+ExpenseDatabase  
+ └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2  
+      └── -OUmjTKWx5I2-MSigh-5  
+          ├── amount: 200  
+          ├── date: "Jul 9, 2025"  
+          ├── id: "-OUmjTKWx5I2-MSigh-5"  
+          ├── note: "Food"  
+          └── type: "Groceries  
 
 
 
