@@ -6,7 +6,7 @@ The app is connected to Firebase Realtime Database, so the users data will be se
     Features
 Dashboard View
 The dashboard shows both income and expense data in one screen. Each section is placed one above the other and lets the user scroll through items horizontally.
-![Dashboard Screenshot](screenshots/dashboard.png)
+![Dashboard Screenshot](screenshots/Dashboard.png)
 
   Add New Entry
 Users can create new income or expense records by choosing a type, entering an amount, and adding a note.
