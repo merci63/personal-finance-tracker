@@ -2,14 +2,14 @@
          
 A simple Android app to track personal income and expenses.
 
-  About the App
+      About the App
   
 This app is created using Java and developed in Android Studio. It allows users to track their daily personal finances, including both income and expense records, in a simple and organized way.
 The app is connected to Firebase Realtime Database, so the users data will be securely stored online and synced in real time.
   
-    Features
+     Features
     
-Dashboard View
+   Dashboard View
 
 The dashboard shows both income and expense data in one screen. Each section is placed one above the other and lets the user scroll through items horizontally.
 
@@ -35,7 +35,7 @@ Existing records can be easily updated or removed with just a tap.
    
 The app uses Firebase Realtime Database to store and sync user data safely.
 
-Below are the main features:
+    Below are the main features:
 
 User Login and Registration are done with Firebase Authentication using email and password.
 
@@ -79,10 +79,12 @@ ExpenseDatabase
 
   User Login and Registration  
   
+
 Includes a login page and sign-up page to keep data private and secure.
 
 
 ![Login Page Screenshot](screenshots/login.png)
+
 
 
   Password Reset  
@@ -94,12 +96,14 @@ User can reset their password if they forget it by reciving a reset email.
 
 
   Navigation Drawer
+  
 A sidebar menu gives quick access to Dashboard, Income, Expense, and Logout, each with its own icon.
 
 ![Navigation Drawer Screenshot](screenshots/Navigation%20Drawer.png)
 
 
  Bottom Navigation Bar
+ 
 The app also has a bottom bar with icons for Dashboard, Income, and Expense screens.
 
 
