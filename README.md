@@ -55,10 +55,13 @@ All data changes are updated in real time.
 Firebase Data Structure
 
 
-  IncomeData   
+  IncomeData  
+  
  └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2  
-      └── -OUTQyIUwV2RTsxvA051  
-          ├── amount: 5000  
+ 
+      └── -OUTQyIUwV2RTsxvA051 
+      
+          ├── amount: 5000   
           ├── date: "Jul 6, 2025"  
           ├── id: "-OUTQyIUwV2RTsxvA051"  
           ├── note: "monthly payment"  
@@ -67,8 +70,11 @@ Firebase Data Structure
           
 
 ExpenseDatabase  
- └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2  
+
+ └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2 
+ 
       └── -OUmjTKWx5I2-MSigh-5  
+      
           ├── amount: 200  
           ├── date: "Jul 9, 2025"  
           ├── id: "-OUmjTKWx5I2-MSigh-5"  
