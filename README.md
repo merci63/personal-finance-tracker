@@ -1,4 +1,4 @@
-         Personal Finance Tracker
+       ##  Personal Finance Tracker ##
          
 A simple Android app to track personal income and expenses.
 
