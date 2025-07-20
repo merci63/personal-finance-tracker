@@ -1,13 +1,13 @@
-     ##   Personal Finance Tracker
+ ##   **Personal Finance Tracker
          
 A simple Android app to track personal income and expenses.
 
-      **About the App**
+**About the App**
   
 This app is created using Java and developed in Android Studio. It allows users to track their daily personal finances, including both income and expense records, in a simple and organized way.
 The app is connected to Firebase Realtime Database, so the users data will be securely stored online and synced in real time.
   
-    **Features**
+ **Features**
     
   **Dashboard View**
 
