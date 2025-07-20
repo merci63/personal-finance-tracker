@@ -1,15 +1,15 @@
-         Personal Finance Tracker 
+     ##   Personal Finance Tracker
          
 A simple Android app to track personal income and expenses.
 
-      About the App
+      **About the App**
   
 This app is created using Java and developed in Android Studio. It allows users to track their daily personal finances, including both income and expense records, in a simple and organized way.
 The app is connected to Firebase Realtime Database, so the users data will be securely stored online and synced in real time.
   
-     Features
+    **Features**
     
-   Dashboard View
+  **Dashboard View**
 
 The dashboard shows both income and expense data in one screen. Each section is placed one above the other and lets the user scroll through items horizontally.
 
@@ -17,7 +17,7 @@ The dashboard shows both income and expense data in one screen. Each section is 
 
 
   
-  Add New Entry
+  **Add New Entry**
   
 Users can create new income or expense records by choosing a type, entering an amount, and adding a note.
 
@@ -25,13 +25,13 @@ Users can create new income or expense records by choosing a type, entering an a
 
 
 
-   Edit and Delete
+   **Edit and Delete**
    
 Existing records can be easily updated or removed with just a tap.
 
 ![Edit and Delete Screenshot](screenshots/update%20and%20delete.png)
 
-   Firebase Integration Details
+   **Firebase Integration Details**
    
 The app uses Firebase Realtime Database to store and sync user data safely.
 
@@ -52,38 +52,36 @@ Password reset is available. If a user forgets their password, they can receive 
 All data changes are updated in real time.
 
 
-Firebase Data Structure
+**Firebase Data Structure**
 
+'''json
+{
+  "IncomeData":{  
+ └── "BA0OIFV0neUu4eV7Nodk0F7C0Sn2": { 
+      └── "-OUTQyIUwV2RTsxvA051": { 
+          ├── "amount": 5000,   
+          ├── "date": "Jul 6, 2025", 
+          ├── "id": "-OUTQyIUwV2RTsxvA051",  
+          ├── "note": "monthly payment",  
+          └──"type": "salary"  
+  }
+ }         
+},
+"ExpenseDatabase": {
+ └── "BA0OIFV0neUu4eV7Nodk0F7C0Sn2": {
+      └── "-OUmjTKWx5I2-MSigh-5": {  
+          ├── "amount": 200, 
+          ├── "date": "Jul 9, 2025",  
+          ├── "id": "-OUmjTKWx5I2-MSigh-5",  
+          ├── "note": "Food",  
+          └── "type": "Groceries"
+          }
+  }
+  }
+}
+}
 
-  IncomeData  
-  
- └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2  
- 
-      └── -OUTQyIUwV2RTsxvA051 
-      
-          ├── amount: 5000   
-          ├── date: "Jul 6, 2025"  
-          ├── id: "-OUTQyIUwV2RTsxvA051"  
-          ├── note: "monthly payment"  
-          └── type: "salary"  
-
-          
-
-ExpenseDatabase  
-
- └── BA0OIFV0neUu4eV7Nodk0F7C0Sn2 
- 
-      └── -OUmjTKWx5I2-MSigh-5  
-      
-          ├── amount: 200  
-          ├── date: "Jul 9, 2025"  
-          ├── id: "-OUmjTKWx5I2-MSigh-5"  
-          ├── note: "Food"  
-          └── type: "Groceries  
-
-
-
-  User Login and Registration  
+  **User Login and Registration** 
   
 
 Includes a login page and sign-up page to keep data private and secure.
@@ -93,7 +91,7 @@ Includes a login page and sign-up page to keep data private and secure.
 
 
 
-  Password Reset  
+  **Password Reset**  
   
 User can reset their password if they forget it by reciving a reset email.
 
@@ -101,14 +99,14 @@ User can reset their password if they forget it by reciving a reset email.
 ![Password reset Screenshot](screenshots/reset.png)
 
 
-  Navigation Drawer
+  **Navigation Drawer**
   
 A sidebar menu gives quick access to Dashboard, Income, Expense, and Logout, each with its own icon.
 
 ![Navigation Drawer Screenshot](screenshots/Navigation%20Drawer.png)
 
 
- Bottom Navigation Bar
+ **Bottom Navigation Bar**
  
 The app also has a bottom bar with icons for Dashboard, Income, and Expense screens.
 
@@ -118,10 +116,10 @@ The app also has a bottom bar with icons for Dashboard, Income, and Expense scre
 
     I used
     
-  Language - Java
+  **Language** - Java
   
-  IDE - Android Studio
+  **IDE** - Android Studio
   
-  Backend - Firebase Realtime Database
+  **Backend** - Firebase Realtime Database
 
-  Authentication - Firebase Authentication(Email and Password)
+  **Authentication** - Firebase Authentication(Email and Password)
