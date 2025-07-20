@@ -35,15 +35,15 @@ Existing records can be easily updated or removed with just a tap.
    
 The app uses Firebase Realtime Database to store and sync user data safely.
 
-    Below are the main features:
+   **Below are the main features:**
 
 User Login and Registration are done with Firebase Authentication using email and password.
 
 The app saves, updates and deletes:
 
-    Income records
+   **Income records**
     
-    Expense records
+   **Expense records**
 
 Each user has their own data, saved under their unique user ID (UID), so it stays private.
 
